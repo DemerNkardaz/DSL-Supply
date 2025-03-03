@@ -53,7 +53,15 @@ class Panel {
 		}, 150);
 	}
 
+	static async getManifestData() {
+		const response = await fetch('./manifest.json');
+		const data = await response.json();
+		return data;
+	}
+
 	static async renderUI() {
+		const manifest = await Panel.getManifestData();
+		
 		const preConstructedFrame = `
 			<div class="panel-container">
 				<div class="panel-frame">
@@ -73,7 +81,7 @@ class Panel {
 						</div>
 					</main>
 					<footer class="panel-footer">
-						footer
+						${manifest.name}&hairsp;<sup>${manifest.version}</sup>
 					</footer
 				</div>
 			</div>

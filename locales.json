@@ -2,11 +2,13 @@
 	"ru": {
 		"miscellaneous": "Разное",
 		"letters": "Буквы",
-		"scripts": "Письменности"
+		"scripts": "Письменности",
+		"version": "Версия"
 	},
 	"en": {
 		"miscellaneous": "Miscellaneous",
 		"letters": "Letters",
-		"scripts": "Scripts"
+		"scripts": "Scripts",
+		"version": "Version"
 	}
 }
