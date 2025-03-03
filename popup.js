@@ -35,6 +35,22 @@ class Panel {
 	async render() {
 		const frame = await Panel.renderUI();
 		document.body.innerHTML = frame;
+	
+		setTimeout(() => {
+			document.addEventListener('click', (e) => {
+				const target = e.target;
+				if (target.classList.contains('panel-tab-button')) {
+					const activeTab = document.querySelector('.panel-tab-button.active');
+					if (activeTab) {
+						activeTab.classList.remove('active');
+					}
+
+					target.classList.add('active');
+				}
+			});
+
+			document.querySelector('.panel-tab-button').click();
+		}, 150);
 	}
 
 	static async renderUI() {
@@ -43,9 +59,9 @@ class Panel {
 				<div class="panel-frame">
 					<header class="panel-header">
 						<div class="panel-tabs">
-							<button class="panel-tab" data-tab-target="misc">@{miscellaneous}</button>
-							<button class="panel-tab" data-tab-target="letters">@{letters}</button>
-							<button class="panel-tab" data-tab-target="scripts">@{scripts}</button>
+							<button class="panel-tab-button" data-tab-target="misc">@{miscellaneous}</button>
+							<button class="panel-tab-button" data-tab-target="letters">@{letters}</button>
+							<button class="panel-tab-button" data-tab-target="scripts">@{scripts}</button>
 						</div>
 						<div class="panel-options">
 
