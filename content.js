@@ -13,35 +13,60 @@ function inputFieldFocused() {
 			(activeElement.hasAttribute('contenteditable') && activeElement.getAttribute('contenteditable') === 'true'));
 }
 
-let modifierKey = '';
-let currentKey = '';
+
+/*
+
+if (inputFieldFocused()) {
+	if (['AltGraph', 'Alt', 'Control', 'Shift'].includes(e.key)) {
+		prefix = (['Control', 'Shift'].includes(e.key) ? (e.location === 1 ? 'Left' : 'Right') : '')
+		modifierKey = modifierKey + prefix + e.key;
+		console.log(modifierKey);
+	} else {
+		currentKey = e.key;
+	}
+
+
+	if (currentKey.length > 0) {
+		if (modifierKey === 'LeftControlAltGraph' && currentKey === 'A') {
+			insertTextAtCursor(e, "Ă");
+		} else if (modifierKey === 'LeftControlAltGraphRightShift' && currentKey === 'A') {
+			insertTextAtCursor(e, "Ā");
+		} else if (modifierKey === 'LeftControlAltGraphLeftShift' && currentKey === 'A') {
+			insertTextAtCursor(e, "Ä");
+		}
+
+		modifierKey = '';
+		currentKey = '';
+	}
+	}
+*/
+
+const keysDown = [];
 
 window.onkeydown = function (e) {
-	if (inputFieldFocused()) {
-		console.log(e.key);
-		if (['AltGraph', 'Alt', 'Control', 'Shift'].includes(e.key)) {
-			prefix = (['Control', 'Shift'].includes(e.key) ? (e.location === 1 ? 'Left' : 'Right') : '')
-			modifierKey = prefix + e.key;
-		} else {
-			currentKey = e.key;
-		}
-		console.log(modifierKey + currentKey);
-		if (currentKey.length > 0) {
-			if (modifierKey === 'AltGraph' && currentKey === 'A') {
-				e.preventDefault();
-				insertTextAtCursor("Ă");
-				modifierKey = '';
-				currentKey = '';
-			}
-		}
-		}
-	
+	if (!keysDown.includes(e.code)) {
+		keysDown.push(e.code);
+	}
+	console.log(keysDown);
+
+	if (keysDown.includes('AltRight') && keysDown.includes('KeyA')) {
+		insertTextAtCursor(e, keysDown.includes('ShiftRight') ? "Ā" : keysDown.includes('ShiftLeft') ? "Ä" :  "Ă");
+	}
+}
+
+window.onkeyup = function (e) {
+	const index = keysDown.indexOf(e.code);
+	if (index !== -1) {
+		keysDown.splice(index, 1);
+	}
+	console.log(keysDown);
 }
 
 
-function insertTextAtCursor(text) {
-	const activeElement = document.activeElement;
-	if (activeElement && (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA")) {
+function insertTextAtCursor(e, text) {
+	if (inputFieldFocused()) {
+		e.preventDefault();
+		const activeElement = document.activeElement;
 		const start = activeElement.selectionStart;
 		const end = activeElement.selectionEnd;
 		const value = activeElement.value;
