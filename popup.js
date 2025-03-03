@@ -41,11 +41,24 @@ class Panel {
 		const preConstructedFrame = `
 			<div class="panel-container">
 				<div class="panel-frame">
-					<div class="panel-tabs">
-						<button class="panel-tab">@{miscellaneous}</button>
-						<button class="panel-tab">@{letters}</button>
-						<button class="panel-tab">@{scripts}</button>
-					</div>
+					<header class="panel-header">
+						<div class="panel-tabs">
+							<button class="panel-tab" data-tab-target="misc">@{miscellaneous}</button>
+							<button class="panel-tab" data-tab-target="letters">@{letters}</button>
+							<button class="panel-tab" data-tab-target="scripts">@{scripts}</button>
+						</div>
+						<div class="panel-options">
+
+						</div>
+					</header>
+					<main class="panel-content">
+						<div class="panel-tab-content" id="misc">
+
+						</div>
+					</main>
+					<footer class="panel-footer">
+						footer
+					</footer
 				</div>
 			</div>
 		`;
