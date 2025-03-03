@@ -14,44 +14,70 @@ function inputFieldFocused() {
 }
 
 
-/*
-
-if (inputFieldFocused()) {
-	if (['AltGraph', 'Alt', 'Control', 'Shift'].includes(e.key)) {
-		prefix = (['Control', 'Shift'].includes(e.key) ? (e.location === 1 ? 'Left' : 'Right') : '')
-		modifierKey = modifierKey + prefix + e.key;
-		console.log(modifierKey);
-	} else {
-		currentKey = e.key;
-	}
-
-
-	if (currentKey.length > 0) {
-		if (modifierKey === 'LeftControlAltGraph' && currentKey === 'A') {
-			insertTextAtCursor(e, "Ă");
-		} else if (modifierKey === 'LeftControlAltGraphRightShift' && currentKey === 'A') {
-			insertTextAtCursor(e, "Ā");
-		} else if (modifierKey === 'LeftControlAltGraphLeftShift' && currentKey === 'A') {
-			insertTextAtCursor(e, "Ä");
-		}
-
-		modifierKey = '';
-		currentKey = '';
-	}
-	}
-*/
-
 const keysDown = [];
+const modifierShortcuts = {
+	'<^': 'ControlLeft',
+	'>^': 'ControlRight',
+	'<!': 'AltLeft',
+	'>!': 'AltRight',
+	'<+': 'ShiftLeft',
+	'>+': 'ShiftRight',
+};
 
 window.onkeydown = function (e) {
 	if (!keysDown.includes(e.code)) {
 		keysDown.push(e.code);
 	}
+
 	console.log(keysDown);
 
-	if (keysDown.includes('AltRight') && keysDown.includes('KeyA')) {
-		insertTextAtCursor(e, keysDown.includes('ShiftRight') ? "Ā" : keysDown.includes('ShiftLeft') ? "Ä" :  "Ă");
+	const capsLock = e.getModifierState("CapsLock")
+
+		
+	for (const prop in combinations) {
+		if (isCombination(prop)) {
+			if (Array.isArray(combinations[prop])) {
+				insertTextAtCursor(e, combinations[prop][capsLock ? 0 : 1]);
+			} else {
+				insertTextAtCursor(e, combinations[prop]);
+			}
+			return;
+		}
 	}
+};
+
+
+
+const combinations = {
+	'<^`>!`KeyA': ['Ă', 'ă'],
+	'<^`>!`>+`KeyA': ['Ā', 'ā'],
+	'<^`>!`<+`KeyA': ['Ä', 'ä'],
+	'<^`>!`<!`KeyA': ['Â', 'â'],
+	'<^`>!`<!`>+`KeyA': ['Ą', 'ą'],
+	'<^`>!`<!`<+`KeyA': ['Å', 'å'],
+}
+
+function isCombination(keys) {
+	const keysArray = keys.split('`');
+
+	for (let i = 0; i < keysArray.length; i++) {
+		const key = keysArray[i];
+		if (key in modifierShortcuts) {
+			keysArray[i] = modifierShortcuts[key];
+		}
+	}
+
+	if (keysArray.length !== keysDown.length) {
+		return false;
+	}
+
+	for (let i = 0; i < keysArray.length; i++) {
+		if (keysArray[i] !== keysDown[i]) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 window.onkeyup = function (e) {
@@ -59,8 +85,8 @@ window.onkeyup = function (e) {
 	if (index !== -1) {
 		keysDown.splice(index, 1);
 	}
-	console.log(keysDown);
-}
+};
+
 
 
 function insertTextAtCursor(e, text) {
@@ -74,6 +100,7 @@ function insertTextAtCursor(e, text) {
 		activeElement.value = value.substring(0, start) + text + value.substring(end);
 		activeElement.selectionStart = activeElement.selectionEnd = start + text.length;
 		activeElement.dispatchEvent(new Event("input", { bubbles: true }));
+		return
 	}
 }
 
