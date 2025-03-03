@@ -12,15 +12,11 @@
 
 <img src="https://raw.githubusercontent.com/DemerNkardaz/DSL-KeyPad/refs/heads/main/__dev/DSLKeyPad_App_Icons/DSLKeyPad.app_browserext.ico" alt="" width="128" align="left">
 
-This extension is a browser-based branch of [“DSL KeyPad”](https://github.com/DemerNkardaz/DSL-KeyPad), a tool dedicated to enhancing multilingual input for Latin- and Cyrillic-based languages, historical scripts, and various other Unicode symbols.
-
-DSL Supply is a Firefox extension that partially implements the features of DSL KeyPad within the browser. It provides an interface for a symbol library, input of characters via key combinations (<kbd>AltGr A → Ă</kbd>), and a "Compose" mode that allows users to produce characters through sequential inputs (<kbd>AE → Æ</kbd>).
+DSL Supply is a Firefox extension that partially implements the features of [“DSL KeyPad”](https://github.com/DemerNkardaz/DSL-KeyPad) within the browser. It provides an interface for a symbol library, input of characters via key combinations (<kbd>AltGr A → Ă</kbd>), and a "Compose" mode that allows users to produce characters through sequential inputs (<kbd>AE → Æ</kbd>).<br><br>
 
 # Обзор
 
-Браузерное ответвление инструмента [«DSL KeyPad»](https://github.com/DemerNkardaz/DSL-KeyPad), посвящённого расширению многоязычного ввода для языков на основе латиницы и кириллицы; исторического письма; и различных прочих символов юникода.<br>
-
-DSL Supply — расширение для Firefox, частично реализующее возможности DSL KeyPad в рамках браузера, а именно: интерфейс библиотеки символов; ввод символов посредством комбинаций клавиш (<kbd>AltGr A → Ă</kbd>) и режим «Compose» для получения символов посредством последовательностей других (<kbd>AE → Æ</kbd>).
+DSL Supply — расширение для Firefox, частично реализующее возможности [«DSL KeyPad»](https://github.com/DemerNkardaz/DSL-KeyPad) в рамках браузера, а именно: интерфейс библиотеки символов; ввод символов посредством комбинаций клавиш (<kbd>AltGr A → Ă</kbd>) и режим «Compose» для получения символов посредством последовательностей других (<kbd>AE → Æ</kbd>).<br><br>
 
 ## «Быстрые ключи»
 
