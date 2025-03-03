@@ -29,6 +29,25 @@ window.onkeydown = function (e) {
 		keysDown.push(e.code);
 	}
 
+	const char = e.key
+	if (char.length === 1) {
+			const codePoint = char.codePointAt(0);
+			
+			if (
+					(codePoint >= 0x0400 && codePoint <= 0x04FF) ||
+					(codePoint >= 0x0500 && codePoint <= 0x052F) ||
+					(codePoint >= 0x2DE0 && codePoint <= 0x2DFF) ||
+					(codePoint >= 0xA640 && codePoint <= 0xA69F) ||
+					(codePoint >= 0x1C80 && codePoint <= 0x1C8F) ||
+					(codePoint >= 0x1E030 && codePoint <= 0x1E08F)
+			) {
+					console.log("🔹 Русская раскладка");
+			} else {
+					console.log("🔸 Латинская раскладка или другой язык");
+			}
+	}
+
+
 	console.log(keysDown);
 
 	const capsLock = e.getModifierState("CapsLock")
@@ -49,6 +68,7 @@ window.onkeydown = function (e) {
 
 
 const combinations = {
+	'<^`<!`KeyA': String.fromCharCode(0x0301),
 	'<^`>!`KeyA': ['Ă', 'ă'],
 	'<^`>!`>+`KeyA': ['Ā', 'ā'],
 	'<^`>!`<+`KeyA': ['Ä', 'ä'],

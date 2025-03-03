@@ -47,6 +47,10 @@ class Panel {
 
 					target.classList.add('active');
 				}
+
+				if (target.id === 'openPopupButton') {
+						Panel.openPopupWindow();
+				}
 			});
 
 			document.querySelector('.panel-tab-button').click();
@@ -72,7 +76,7 @@ class Panel {
 							<button class="panel-tab-button" data-tab-target="scripts">@{scripts}</button>
 						</div>
 						<div class="panel-options">
-
+							<button class="panel-tab-button" id="openPopupButton">Open Popup</button>
 						</div>
 					</header>
 					<main class="panel-content">
@@ -101,6 +105,15 @@ class Panel {
 
 		return postConstructedFrame;
 	}
+
+	static openPopupWindow() {
+		browser.windows.create({
+			url: browser.runtime.getURL("popup.html"),
+			type: "popup",
+			width: 816,
+			height: 640
+		});
+}
 }
 
 (async () => {
