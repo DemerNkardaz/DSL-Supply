@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Тестирование функций клавиш</title>
+		<style>
+				body {
+						font-family: Arial, sans-serif;
+						padding: 20px;
+				}
+				#output {
+						margin-top: 20px;
+						padding: 10px;
+						border: 1px solid #ccc;
+						background-color: #f9f9f9;
+						width: 400px;
+				}
+		</style>
+</head>
+<body>
+	<div id="output"></div>
+</body>
+		<script>
+			window.onkeydown = function (e) {
+			document.getElementById("output").innerHTML = e.key + e.location;
+				if (e.key === 'AltGraph') {
+					console.log(e.key);
+				}
+			};
+		</script>
+</html>
