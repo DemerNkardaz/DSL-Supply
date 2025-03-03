@@ -13,15 +13,31 @@ function inputFieldFocused() {
 			(activeElement.hasAttribute('contenteditable') && activeElement.getAttribute('contenteditable') === 'true'));
 }
 
+let modifierKey = '';
+let currentKey = '';
 
 window.onkeydown = function (e) {
 	if (inputFieldFocused()) {
 		console.log(e.key);
-		if (e.key === 'AltGraph') {
-			insertTextAtCursor(e.key);
+		if (['AltGraph', 'Alt', 'Control', 'Shift'].includes(e.key)) {
+			prefix = (['Control', 'Shift'].includes(e.key) ? (e.location === 1 ? 'Left' : 'Right') : '')
+			modifierKey = prefix + e.key;
+		} else {
+			currentKey = e.key;
 		}
-	}
+		console.log(modifierKey + currentKey);
+		if (currentKey.length > 0) {
+			if (modifierKey === 'AltGraph' && currentKey === 'A') {
+				e.preventDefault();
+				insertTextAtCursor("Ă");
+				modifierKey = '';
+				currentKey = '';
+			}
+		}
+		}
+	
 }
+
 
 function insertTextAtCursor(text) {
 	const activeElement = document.activeElement;
